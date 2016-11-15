@@ -16,8 +16,6 @@
 package org.springframework.data.repository.util;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assume.*;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -78,17 +76,17 @@ public class QueryExecutionConvertersUnitTests {
 	@Test
 	public void registersReactiveWrapperTypes() {
 
-		assertThat(QueryExecutionConverters.supports(Publisher.class), is(true));
-		assertThat(QueryExecutionConverters.supports(Mono.class), is(true));
-		assertThat(QueryExecutionConverters.supports(Flux.class), is(true));
-		assertThat(QueryExecutionConverters.supports(Single.class), is(true));
-		assertThat(QueryExecutionConverters.supports(Completable.class), is(true));
-		assertThat(QueryExecutionConverters.supports(Observable.class), is(true));
-		assertThat(QueryExecutionConverters.supports(io.reactivex.Single.class), is(true));
-		assertThat(QueryExecutionConverters.supports(io.reactivex.Maybe.class), is(true));
-		assertThat(QueryExecutionConverters.supports(io.reactivex.Completable.class), is(true));
-		assertThat(QueryExecutionConverters.supports(io.reactivex.Flowable.class), is(true));
-		assertThat(QueryExecutionConverters.supports(io.reactivex.Observable.class), is(true));
+		assertThat(QueryExecutionConverters.supports(Publisher.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(Mono.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(Flux.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(Single.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(Completable.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(Observable.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(io.reactivex.Single.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(io.reactivex.Maybe.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(io.reactivex.Completable.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(io.reactivex.Flowable.class)).isTrue();
+		assertThat(QueryExecutionConverters.supports(io.reactivex.Observable.class)).isTrue();
 	}
 
 	/**
@@ -97,11 +95,11 @@ public class QueryExecutionConvertersUnitTests {
 	@Test
 	public void registersUnwrapperTypes() {
 
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Optional.class), is(true));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(java.util.Optional.class), is(true));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Future.class), is(true));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(ListenableFuture.class), is(true));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Option.class), is(true));
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Optional.class)).isTrue();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(java.util.Optional.class)).isTrue();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Future.class)).isTrue();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(ListenableFuture.class)).isTrue();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Option.class)).isTrue();
 	}
 
 	/**
@@ -110,17 +108,17 @@ public class QueryExecutionConvertersUnitTests {
 	@Test
 	public void doesNotRegisterReactiveUnwrapperTypes() {
 
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Publisher.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Mono.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Flux.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Single.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Completable.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(Observable.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Single.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Maybe.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Completable.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Flowable.class), is(false));
-		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Observable.class), is(false));
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Publisher.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Mono.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Flux.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Single.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Completable.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(Observable.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Single.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Maybe.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Completable.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Flowable.class)).isFalse();
+		assertThat(QueryExecutionConverters.supportsUnwrapping(io.reactivex.Observable.class)).isFalse();
 	}
 
 	/**
@@ -128,9 +126,6 @@ public class QueryExecutionConvertersUnitTests {
 	 */
 	@Test
 	public void registersCompletableFutureAsWrapperTypeOnSpring42OrBetter() {
-
-		assumeThat(SPRING_VERSION.isGreaterThanOrEqualTo(FOUR_DOT_TWO), is(true));
-
 		assertThat(QueryExecutionConverters.supports(CompletableFuture.class)).isTrue();
 	}
 
@@ -139,7 +134,6 @@ public class QueryExecutionConvertersUnitTests {
 	 */
 	@Test
 	public void turnsNullIntoGuavaOptional() {
-
 		assertThat(conversionService.convert(new NullableWrapper(null), Optional.class)).isEqualTo(Optional.absent());
 	}
 
